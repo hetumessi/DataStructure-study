@@ -4,8 +4,8 @@
 #include"Splaytree.cpp"
 #include"RBtree.cpp"
 #include"Bplustree.cpp"
-#include"test.cpp"
-#include"demo.cpp"
+#include"demo/test.cpp"
+#include"test/demo.cpp"
 int main(){
     clock_t start=clock(),end;
     test_lfu_cache();

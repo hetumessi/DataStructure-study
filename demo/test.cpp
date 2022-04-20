@@ -5,7 +5,7 @@
 #include<cmath>
 #include<cstring>
 #include<cassert>
-#include"data_structure.h"
+#include"../data_structure.h"
 #define MAXDOCNAME 10
 #define MAXWORDLEN 25
 #define MAXSTRING "zzzzzzzzzzzzzzzzzzzzzzzz"

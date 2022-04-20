@@ -1,0 +1,22 @@
+{
+  "name": "datastructure-study",
+  "version": "0.0.1",
+  "description": "相关数据结构的代码实现(个人练习用，不规范)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hetumessi/DataStructure-study.git"
+  },
+  "keywords": [
+    "practice"
+  ],
+  "author": "xushaoqian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hetumessi/DataStructure-study/issues"
+  },
+  "homepage": "https://github.com/hetumessi/DataStructure-study#readme"
+}
