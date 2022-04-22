@@ -5,7 +5,6 @@
 #include<cmath>
 #include<cstring>
 #include<cassert>
-#include"../data_structure.h"
 #define MAXDOCNAME 10
 #define MAXWORDLEN 25
 #define MAXSTRING "zzzzzzzzzzzzzzzzzzzzzzzz"
@@ -21,10 +20,10 @@ typedef struct word{
     docrecord docrecords;
 }word;
 struct dictionary{
-//    dictionaryptr*childs,sibling,parent;
-//    word*words;
-    dictionaryptr childs[10],sibling,parent;
-    word words[10];
+    dictionaryptr*childs,sibling,parent;
+    word*words;
+//    dictionaryptr childs[10],sibling,parent;
+//    word words[10];
     bool isleaf;
 };
 void Traversedic(dictionaryptr,int);
@@ -101,8 +100,8 @@ void Replacerecord(dictionaryptr dicnode,int wordpos,int docnum){
 }
 dictionaryptr InitializeDictionary(dictionaryptr root,bool isleaf,int orders){
     root=(dictionaryptr)malloc(sizeof(struct dictionary));
-//    root->childs=(dictionaryptr*)malloc((orders+1)*sizeof(dictionaryptr));
-//    root->words=(wordptr)malloc((orders+1)*sizeof(struct word));
+    root->childs=(dictionaryptr*)malloc((orders+1)*sizeof(dictionaryptr));
+    root->words=(wordptr)malloc((orders+1)*sizeof(struct word));
     for(int i=0;i<=orders;i++){
         root->childs[i]=nullptr;
         strcpy(root->words[i].word,MAXSTRING);
@@ -227,7 +226,7 @@ void Calculatedistance(dictionaryptr root,int casenum,int inqdoc1,int inqdoc2,in
             }else break;
         root=root->sibling;
     }
-    printf("Case %d: %.3f\n",casenum,innersum/sqrt(modulersum1*modulersum2));
+    printf("Case %d: %.3f\n",casenum,acos(innersum/(sqrt(modulersum1)*sqrt(modulersum2))));
 }
 void Traversedic(dictionaryptr root,int orders){
     if(root){

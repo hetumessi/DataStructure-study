@@ -1,5 +1,17 @@
 # ninja log v5
-0	1562	1650438692444001335	CMakeFiles/adsaa.dir/main.cpp.o	bb2b0f4ecf9addc0
+238	337	1650616313232974919	DataStructure-study	8659abd363c4691e
+2	238	1650616313130348504	CMakeFiles/DataStructure-study.dir/main.cpp.o	59eb0369db82a285
 1565	1660	1650438692546866139	adsaa	8c861756dc5e86c0
-0	1091	1650439191589271633	CMakeFiles/DataStructure-study.dir/main.cpp.o	59eb0369db82a285
-1093	1175	1650439191679372202	DataStructure-study	8659abd363c4691e
+0	1562	1650438692444001335	CMakeFiles/adsaa.dir/main.cpp.o	bb2b0f4ecf9addc0
+1	228	1650616381677405052	CMakeFiles/DataStructure-study.dir/main.cpp.o	59eb0369db82a285
+228	311	1650616381762884535	DataStructure-study	8659abd363c4691e
+1	257	1650616560227409326	CMakeFiles/DataStructure-study.dir/main.cpp.o	59eb0369db82a285
+257	350	1650616560321777314	DataStructure-study	8659abd363c4691e
+1	255	1650616601099657941	CMakeFiles/DataStructure-study.dir/main.cpp.o	59eb0369db82a285
+255	349	1650616601195420134	DataStructure-study	8659abd363c4691e
+1	254	1650616880213840637	CMakeFiles/DataStructure-study.dir/main.cpp.o	59eb0369db82a285
+254	351	1650616880312719541	DataStructure-study	8659abd363c4691e
+2	307	1650616954461209303	CMakeFiles/DataStructure-study.dir/main.cpp.o	59eb0369db82a285
+307	411	1650616954567228063	DataStructure-study	8659abd363c4691e
+1	252	1650616973443053209	CMakeFiles/DataStructure-study.dir/main.cpp.o	59eb0369db82a285
+252	347	1650616973538964055	DataStructure-study	8659abd363c4691e

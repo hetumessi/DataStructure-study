@@ -5,18 +5,6 @@
 //通过定义一个头指针，可以找到树根(必须为黑)
 //自顶向下建树，结点不记录其父结点信息
 //因此需要特别定义几个指针用于记录当前结点及其父、祖父、曾祖结点
-RBptr RBNULLptr=nullptr,current,parent,sibling,grand,great;
-RBptr RBInitialize(RBptr,bool);
-void RBtraverse(RBptr);
-RBptr RBFindMax(RBptr);
-RBptr RBFindMin(RBptr);
-RBptr RBRotate(RBptr,Elementype);
-RBptr SingleLeftRotate(RBptr);
-RBptr SingleRightRotate(RBptr);
-void RBHandleInsert(RBptr,Elementype);
-RBptr RBInsert(RBptr,Elementype);
-void RBHandleDelete();
-RBptr RBDelete(RBptr,Elementype);
 RBptr RBInitialize(RBptr root,bool color){
     root=(RBptr)malloc(sizeof(struct RBnode));
     root->value=-INFINITY,root->color=color;

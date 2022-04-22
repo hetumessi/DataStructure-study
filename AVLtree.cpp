@@ -3,24 +3,6 @@
 //
 #include"data_structure.h"
 #include<cstdlib>
-int Getheight(AVLptr);
-void AVLTraverse(AVLptr);
-AVLptr AVLFindvalue(AVLptr,Elementype);
-AVLptr AVLFindmin(AVLptr);
-AVLptr AVLFindmax(AVLptr);
-AVLptr LLSingleRotation(AVLptr);
-AVLptr RRSingleRotation(AVLptr);
-AVLptr LRDoubleRotation(AVLptr);
-AVLptr RLDoubleRotation(AVLptr);
-AVLptr AVLInsert(AVLptr,Elementype);
-AVLptr AVLDelete(AVLptr,Elementype);
-Splayptr SplayInitialize(Splayptr);
-void SplayTraverse(Splayptr);
-Splayptr SplayZig(Splayptr);
-Splayptr SplayZag(Splayptr);
-Splayptr SplaySplay(Splayptr, Elementype);
-Splayptr SplayInsert(Splayptr,Elementype);
-Splayptr SplayDelete(Splayptr,Elementype);
 /* AVL树 */
 int Getheight(AVLptr root){
     if(root){

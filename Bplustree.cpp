@@ -1,18 +1,6 @@
 //
 // Created by 徐绍骞 on 2022/3/12.
 //
-Bplusptr BplusInitialize(Bplusptr,int,bool);
-Bplusptr BplusSearchdata(Bplusptr,Elementype,int);
-Bplusptr BplusSearchrange(Bplusptr,Elementype,Elementype,int);
-void BplusTraverse(Bplusptr,int);
-void BplusTravelleaves(Bplusptr,int);
-Bplusptr BplusInsert(Bplusptr,Elementype,int);
-Bplusptr DoInsert(Bplusptr,Elementype,int);
-Bplusptr LeafInsert(Bplusptr,Elementype,int);
-Bplusptr LeafSplit(Bplusptr,int);
-Bplusptr NonleafSplit(Bplusptr,int);
-Bplusptr HandleParent(Bplusptr,Bplusptr,int);
-Bplusptr BuildNewParent(Bplusptr,Bplusptr,Elementype,int);
 Bplusptr BplusInitialize(Bplusptr root,int orders,bool isleaf){
     root=(Bplusptr)malloc(sizeof(struct Bplusnode));
     root->childs=(Bplusptr*)malloc((orders+1)*sizeof(Bplusptr));
