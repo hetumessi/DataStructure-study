@@ -5,11 +5,12 @@
 #include"RBtree.cpp"
 #include"Bplustree.cpp"
 #include"BinaryHeap.cpp"
+#include"LeftistHeap.cpp"
 #include"test/test.cpp"
 #include"demo/demo.cpp"
 int main(){
     clock_t start=clock(),end;
-    PriorityQueue pq1=nullptr,pq2=nullptr;
+    BPriorityQueue pq1=nullptr,pq2=nullptr;
     int capacity=15,numofinput=capacity-5,randdata[capacity];
     int stddata[10]={1,2,3,4,5,6,7,8,9,10};
     srand(time(nullptr));

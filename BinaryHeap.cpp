@@ -2,11 +2,11 @@
 // Created by 徐绍骞 on 2022/4/22.
 //
 #include<cstring>
-static bool compare(enum maxormin ismin,const Elementype a,const Elementype b){
+bool compare(enum MAXORMIN ismin,Elementype a,Elementype b){
     return ismin?a-b<0:a-b>0;
 }
-PriorityQueue BinaryHeapInitialize(PriorityQueue pqueue,int maxelements,enum maxormin ismin){
-    pqueue=(PriorityQueue)malloc(sizeof(struct BinaryHeap));
+BPriorityQueue BinaryHeapInitialize(BPriorityQueue pqueue, int maxelements, enum MAXORMIN ismin){
+    pqueue=(BPriorityQueue)malloc(sizeof(struct BinaryHeap));
     if(maxelements<MINPQSIZE){
         printf("Priority queue is too small.");
         maxelements=MINPQSIZE;
@@ -25,15 +25,15 @@ PriorityQueue BinaryHeapInitialize(PriorityQueue pqueue,int maxelements,enum max
     }
     return pqueue;
 }
-void BinaryHeapDestroy(PriorityQueue pqueue){
+void BinaryHeapDestroy(BPriorityQueue pqueue){
     free(pqueue->value);
     free(pqueue);
 }
-void BinaryHeapMakeEmpty(PriorityQueue pqueue){
+void BinaryHeapMakeEmpty(BPriorityQueue pqueue){
     pqueue->size=0;
     memset(pqueue->value+1,0,pqueue->capacity);
 }
-PriorityQueue BinaryHeapInsert(PriorityQueue pqueue,Elementype insertvalue){
+BPriorityQueue BinaryHeapInsert(BPriorityQueue pqueue, Elementype insertvalue){
     if(BinaryHeapisFull(pqueue)){
         if(compare(pqueue->MaxOrMin,insertvalue,pqueue->value[pqueue->size])){
             printf("二叉堆已满：插入数据将替换已有的最后一个数据\n");
@@ -47,7 +47,7 @@ PriorityQueue BinaryHeapInsert(PriorityQueue pqueue,Elementype insertvalue){
     PercolateUp(pqueue,pqueue->size);
     return pqueue;
 }
-Elementype BinaryHeapDelete(PriorityQueue pqueue){
+Elementype BinaryHeapDelete(BPriorityQueue pqueue){
     if(BinaryHeapisEmpty(pqueue)){
         printf("无法删除：空叉堆\n");
         return pqueue->value[0];
@@ -57,24 +57,24 @@ Elementype BinaryHeapDelete(PriorityQueue pqueue){
     PercolateDown(pqueue,1);
     return returnvalue;
 }
-Elementype BinaryHeapGetFront(PriorityQueue pqueue){
+Elementype BinaryHeapGetFront(BPriorityQueue pqueue){
     return pqueue->value[1];
 }
-bool BinaryHeapisEmpty(PriorityQueue pqueue){
+bool BinaryHeapisEmpty(BPriorityQueue pqueue){
     return pqueue->size==0;
 }
-bool BinaryHeapisFull(PriorityQueue pqueue){
+bool BinaryHeapisFull(BPriorityQueue pqueue){
     return pqueue->size==pqueue->capacity;
 }
-PriorityQueue BinaryHeapDecreaseKey(PriorityQueue pqueue,Elementype delta,int decpos){
+BPriorityQueue BinaryHeapDecreaseKey(BPriorityQueue pqueue, Elementype delta, int decpos){
     pqueue->value[decpos]-=delta;
     return pqueue;
 }
-PriorityQueue BinaryHeapIncreaseKey(PriorityQueue pqueue,Elementype delta,int incpos){
+BPriorityQueue BinaryHeapIncreaseKey(BPriorityQueue pqueue, Elementype delta, int incpos){
     pqueue->value[incpos]+=delta;
     return pqueue;
 }
-void PercolateDown(PriorityQueue pqueue,int pos){
+void PercolateDown(BPriorityQueue pqueue, int pos){
     Elementype tmpvalue=pqueue->value[pos];
     int parentpos=pos,childpos;
     for(;parentpos<=pqueue->size/2;parentpos=childpos){
@@ -87,14 +87,14 @@ void PercolateDown(PriorityQueue pqueue,int pos){
     }
     pqueue->value[parentpos]=tmpvalue;
 }
-void PercolateUp(PriorityQueue pqueue,int pos){
+void PercolateUp(BPriorityQueue pqueue, int pos){
     Elementype tmpvalue=pqueue->value[pos];
     int currentpos=pos;
     for(;compare(pqueue->MaxOrMin,pqueue->value[currentpos],pqueue->value[currentpos/2]);currentpos/=2)
         pqueue->value[currentpos]=pqueue->value[currentpos/2];
     pqueue->value[currentpos]=tmpvalue;
 }
-PriorityQueue BinaryHeapBuild(PriorityQueue pqueue,const Elementype*input,int numofinput){
+BPriorityQueue BinaryHeapBuild(BPriorityQueue pqueue, const Elementype*input, int numofinput){
     for(int i=1;i<=numofinput;i++){
         pqueue->value[i]=input[i-1];
         pqueue->size++;
