@@ -13,7 +13,8 @@ typedef struct Splaynode*Splayptr;
 typedef struct RBnode*RBptr;
 typedef struct Bplusnode*Bplusptr;
 typedef struct BinaryHeap*BPriorityQueue;
-typedef struct LeftistHeap*LBPriorotyQueue;
+typedef struct LeftistHeap*LBPriorityQueue;
+typedef struct SkewHeap*SBPriorityQueue;
 enum COLOR{RED,BLACK};
 enum ISLEAF{NONLEAF,LEAF};
 enum MAXORMIN{MAX,MIN};
@@ -100,17 +101,27 @@ void PercolateUp(BPriorityQueue, int);
 struct LeftistHeap{
     enum MAXORMIN ismin;
     Elementype value;
-    LBPriorotyQueue leftchild,rightchild;
+    LBPriorityQueue leftchild,rightchild;
     int Npl;
 };
-LBPriorotyQueue LeftistHeapInitialize(LBPriorotyQueue,Elementype,enum MAXORMIN);
-Elementype LeftistHeapGetfront(LBPriorotyQueue);
-bool LeftistHeapIsEmpty(LBPriorotyQueue);
-LBPriorotyQueue LeftistHeapMerge_REC(LBPriorotyQueue,LBPriorotyQueue);
-LBPriorotyQueue LeftistHeapMerge_ITE(LBPriorotyQueue,LBPriorotyQueue);
-LBPriorotyQueue LeftistHeapInsert(LBPriorotyQueue,Elementype);
+LBPriorityQueue LeftistHeapInitialize(LBPriorityQueue, Elementype, enum MAXORMIN);
+Elementype LeftistHeapGetfront(LBPriorityQueue);
+bool LeftistHeapIsEmpty(LBPriorityQueue);
+LBPriorityQueue LeftistHeapMerge_REC(LBPriorityQueue, LBPriorityQueue);
+LBPriorityQueue LeftistHeapMerge_ITE(LBPriorityQueue, LBPriorityQueue);
+LBPriorityQueue LeftistHeapInsert(LBPriorityQueue, Elementype);
 //为了使左式堆删除与二叉堆删除含义一致(返回原本根结点键值)，因此定义一个宏
 #define LeftistHeapBHDelete(queue) LeftistHeapGetfront(heap);LeftistHeapDelete(queue);
-LBPriorotyQueue LeftistHeapDelete(LBPriorotyQueue);
-LBPriorotyQueue LeftistHeapBuild(LBPriorotyQueue,const Elementype*,int);
+LBPriorityQueue LeftistHeapDelete(LBPriorityQueue);
+LBPriorityQueue LeftistHeapBuild(LBPriorityQueue, const Elementype*, int);
+struct SkewHeap{
+    enum MAXORMIN ismin;
+    Elementype value;
+    SBPriorityQueue leftchild,rightchild;
+};
+SBPriorityQueue SkewHeapInitialize(SBPriorityQueue,Elementype,enum MAXORMIN);
+SBPriorityQueue SkewHeapInsert(SBPriorityQueue,Elementype);
+SBPriorityQueue SkewHeapDelete(SBPriorityQueue);
+SBPriorityQueue SkewHeapMerge(SBPriorityQueue,SBPriorityQueue);
+SBPriorityQueue SkewHeapBuild(SBPriorityQueue,const Elementype*,int);
 #endif //ADVANCED_DATA_STRUCTURE_AND_ALGRITHM_ANALYSIS_DATA_STRUCTURE_H
