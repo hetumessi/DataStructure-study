@@ -94,7 +94,7 @@ bool BinaryHeapisEmpty(BPriorityQueue);
 bool BinaryHeapisFull(BPriorityQueue);
 BPriorityQueue BinaryHeapDecreaseKey(BPriorityQueue, Elementype, int);
 BPriorityQueue BinaryHeapIncreaseKey(BPriorityQueue, Elementype, int);
-BPriorityQueue BinaryHeapBuild(BPriorityQueue, const Elementype*, int);
+BPriorityQueue BinaryHeapBuild(BPriorityQueue,const Elementype*, int);
 void PercolateDown(BPriorityQueue, int);
 void PercolateUp(BPriorityQueue, int);
 struct LeftistHeap{
@@ -112,4 +112,5 @@ LBPriorotyQueue LeftistHeapInsert(LBPriorotyQueue,Elementype);
 //为了使左式堆删除与二叉堆删除含义一致(返回原本根结点键值)，因此定义一个宏
 #define LeftistHeapBHDelete(queue) LeftistHeapGetfront(heap);LeftistHeapDelete(queue);
 LBPriorotyQueue LeftistHeapDelete(LBPriorotyQueue);
+LBPriorotyQueue LeftistHeapBuild(LBPriorotyQueue,const Elementype*,int);
 #endif //ADVANCED_DATA_STRUCTURE_AND_ALGRITHM_ANALYSIS_DATA_STRUCTURE_H
