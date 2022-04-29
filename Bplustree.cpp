@@ -5,7 +5,7 @@ Bplusptr BplusInitialize(Bplusptr root,int orders,bool isleaf){
     root=(Bplusptr)malloc(sizeof(struct Bplusnode));
     root->childs=(Bplusptr*)malloc((orders+1)*sizeof(Bplusptr));
     root->keys=(Elementype*)malloc((orders+1)*sizeof(Elementype));
-    for(int i=0;i<orders+1;i++)root->childs[i]=nullptr,root->keys[i]=INFINITY;
+    for(int i=0;i<orders+1;i++)root->childs[i]=nullptr,root->keys[i]=MYINFINITY;
     root->isleaf=isleaf;
     root->sibling=root->parent=nullptr;
     return root;
@@ -27,7 +27,7 @@ Bplusptr BplusSearchrange(Bplusptr root,Elementype low,Elementype high,int order
     root=start;
     while(start){
         printf("[");
-        for(int i=0;start->keys[i]<INFINITY;i++){
+        for(int i=0;start->keys[i]<MYINFINITY;i++){
             if(!flag){
                 printf("%d",start->keys[i]);
                 flag=1;
@@ -45,7 +45,7 @@ void BplusTraverse(Bplusptr root,int orders){
     if(!root)return;
     bool flag=false;
     printf("[");
-    for(int j=0;j<orders;j++)if(root->keys[j]<INFINITY){
+    for(int j=0;j<orders;j++)if(root->keys[j]<MYINFINITY){
             if(!flag){
                 printf("%d",root->keys[j]);
                 flag=true;
@@ -60,7 +60,7 @@ void BplusTravelleaves(Bplusptr root,int orders){
     while(root){
         bool flag=false;
         printf("[");
-        for(int i=0;root->keys[i]<INFINITY;i++){
+        for(int i=0;root->keys[i]<MYINFINITY;i++){
             if(!flag){
                 printf("%d",root->keys[i]);
                 flag=true;
@@ -84,18 +84,18 @@ Bplusptr BplusInsert(Bplusptr root,Elementype insertvalue,int orders){
 Bplusptr DoInsert(Bplusptr root,Elementype insertvalue,int orders){
     if(root->isleaf){
         root=LeafInsert(root,insertvalue,orders);
-        if(root->keys[orders]!=INFINITY){
+        if(root->keys[orders]!=MYINFINITY){
             Bplusptr next=LeafSplit(root,orders);
             if(root->parent)root->parent=HandleParent(root,next,orders);
             else root->parent=BuildNewParent(root,next,next->keys[0],orders);
         }
         if(root->parent)root=DoInsert(root->parent,insertvalue,orders);
     }else{
-        if(root->keys[orders-1]!=INFINITY){
+        if(root->keys[orders-1]!=MYINFINITY){
             Bplusptr next=NonleafSplit(root,orders);
             if(root->parent)root->parent=HandleParent(root,next,orders);
             else root->parent=BuildNewParent(root,next,root->keys[orders/2],orders);
-            for(int i=1+orders/2;i<=orders;i++)root->keys[i-1]=INFINITY,root->childs[i]=nullptr;
+            for(int i=1+orders/2;i<=orders;i++)root->keys[i-1]=MYINFINITY,root->childs[i]=nullptr;
         }
         if(root->parent)root=DoInsert(root->parent,insertvalue,orders);
     }
@@ -114,7 +114,7 @@ Bplusptr LeafSplit(Bplusptr leaf,int orders){
     nextleaf->sibling=leaf->sibling,leaf->sibling=nextleaf;
     for(int i=0;i<(orders+1)/2;i++){
         nextleaf->keys[i]=leaf->keys[i+1+orders/2];
-        leaf->keys[i+1+orders/2]=INFINITY;
+        leaf->keys[i+1+orders/2]=MYINFINITY;
     }
     return nextleaf;
 }

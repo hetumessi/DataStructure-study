@@ -16,11 +16,11 @@ BPriorityQueue BinaryHeapInitialize(BPriorityQueue pqueue, int maxelements, enum
         pqueue->capacity=maxelements;
         pqueue->size=0;
         if(ismin){
-            pqueue->value[0]=-INFINITY;
-            for(int i=1;i<=maxelements;i++)pqueue->value[i]=INFINITY;
+            pqueue->value[0]=-MYINFINITY;
+            for(int i=1;i<=maxelements;i++)pqueue->value[i]=MYINFINITY;
         }else{
-            pqueue->value[0]=INFINITY;
-            for(int i=1;i<=maxelements;i++)pqueue->value[i]=-INFINITY;
+            pqueue->value[0]=MYINFINITY;
+            for(int i=1;i<=maxelements;i++)pqueue->value[i]=-MYINFINITY;
         }
     }
     return pqueue;
@@ -37,7 +37,7 @@ BPriorityQueue BinaryHeapInsert(BPriorityQueue pqueue, Elementype insertvalue){
     if(BinaryHeapisFull(pqueue)){
         if(compare(pqueue->MaxOrMin,insertvalue,pqueue->value[pqueue->size])){
             printf("二叉堆已满：插入数据将替换已有的最后一个数据\n");
-            pqueue->value[pqueue->size--]=insertvalue;
+            pqueue->size--;
         }else{
             printf("二叉堆已满：无法插入数据");
             return pqueue;
@@ -68,10 +68,14 @@ bool BinaryHeapisFull(BPriorityQueue pqueue){
 }
 BPriorityQueue BinaryHeapDecreaseKey(BPriorityQueue pqueue, Elementype delta, int decpos){
     pqueue->value[decpos]-=delta;
+    if(pqueue->MaxOrMin)PercolateUp(pqueue,decpos);
+    else PercolateDown(pqueue,decpos);
     return pqueue;
 }
 BPriorityQueue BinaryHeapIncreaseKey(BPriorityQueue pqueue, Elementype delta, int incpos){
     pqueue->value[incpos]+=delta;
+    if(pqueue->MaxOrMin)PercolateDown(pqueue,incpos);
+    else PercolateUp(pqueue,incpos);
     return pqueue;
 }
 void PercolateDown(BPriorityQueue pqueue, int pos){

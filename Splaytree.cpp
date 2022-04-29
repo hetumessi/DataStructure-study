@@ -9,7 +9,7 @@ Splayptr SplayInitialize(Splayptr root){
     if(!SplayNULLptr){
         SplayNULLptr=(Splayptr)malloc(sizeof(struct Splaynode));
         SplayNULLptr->leftchild=SplayNULLptr->rightchild=SplayNULLptr;
-        SplayNULLptr->value=-INFINITY;
+        SplayNULLptr->value=-MYINFINITY;
     }
     root=(Splayptr)malloc(sizeof(struct Splaynode));
     root->leftchild=root->rightchild=SplayNULLptr;

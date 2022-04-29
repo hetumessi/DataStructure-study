@@ -1,12 +1,11 @@
 //
 // Created by 徐绍骞 on 2022/2/19.
 //
-
 #ifndef ADVANCED_DATA_STRUCTURE_AND_ALGRITHM_ANALYSIS_DATA_STRUCTURE_H
 #define ADVANCED_DATA_STRUCTURE_AND_ALGRITHM_ANALYSIS_DATA_STRUCTURE_H
-#define INFINITY 65535
+#define MYINFINITY 65535
 #define MINPQSIZE 5
-#define MAXPQSIZE (INFINITY/sizeof(int))
+#define MAXTREES 100
 typedef int Elementype;
 typedef struct AVLnode*AVLptr;
 typedef struct Splaynode*Splayptr;
@@ -15,6 +14,8 @@ typedef struct Bplusnode*Bplusptr;
 typedef struct BinaryHeap*BPriorityQueue;
 typedef struct LeftistHeap*LBPriorityQueue;
 typedef struct SkewHeap*SBPriorityQueue;
+typedef struct Binode*BinTree;
+typedef struct BinCollection*BinomialQueue;
 enum COLOR{RED,BLACK};
 enum ISLEAF{NONLEAF,LEAF};
 enum MAXORMIN{MAX,MIN};
@@ -124,4 +125,23 @@ SBPriorityQueue SkewHeapInsert(SBPriorityQueue,Elementype);
 SBPriorityQueue SkewHeapDelete(SBPriorityQueue);
 SBPriorityQueue SkewHeapMerge(SBPriorityQueue,SBPriorityQueue);
 SBPriorityQueue SkewHeapBuild(SBPriorityQueue,const Elementype*,int);
+struct Binode{
+    Elementype value;
+    BinTree firstchild,sibling,parent;
+};
+struct BinCollection{
+    int currentsize; //注意是结点数量，不是树的数量
+    BinTree*Forest;
+};
+BinTree TreeInitialize(BinTree,Elementype);
+BinomialQueue BinomialQueueInitialize(BinomialQueue);
+BinTree TreesCombine(BinTree,BinTree); //合并同样大小的两棵树
+BinomialQueue ForestMerge(BinomialQueue,BinomialQueue);
+BinomialQueue BinomialQueueInsert(BinomialQueue,Elementype);
+Elementype BinomialQueueDeleteMin(BinomialQueue);
+// IncreaseKey和PercolateDown的实现方法同理
+// 对一个任意结点的Delete操作可以通过DecreaseKey到一个极小值后上滤到根结点，然后DeleteMin
+BinTree BinTreeDecreaseKey(BinTree,Elementype);
+BinTree BinTreePercolateUp(BinTree);
+bool BinomialQueueIsEmpty(BinomialQueue);
 #endif //ADVANCED_DATA_STRUCTURE_AND_ALGRITHM_ANALYSIS_DATA_STRUCTURE_H

@@ -7,10 +7,10 @@
 //因此需要特别定义几个指针用于记录当前结点及其父、祖父、曾祖结点
 RBptr RBInitialize(RBptr root,bool color){
     root=(RBptr)malloc(sizeof(struct RBnode));
-    root->value=-INFINITY,root->color=color;
+    root->value=-MYINFINITY,root->color=color;
     if(!RBNULLptr){
         RBNULLptr=(RBptr)malloc(sizeof(struct RBnode));
-        RBNULLptr->value=INFINITY,RBNULLptr->color=BLACK;
+        RBNULLptr->value=MYINFINITY,RBNULLptr->color=BLACK;
         RBNULLptr->leftchild=RBNULLptr->rightchild=RBNULLptr;
     }
     root->leftchild=root->rightchild=RBNULLptr;
