@@ -1,10 +1,12 @@
 //
 // Created by 徐绍骞 on 2022/3/9.
 //
+#include"data_structure.h"
 /* 自顶向下红黑树 */
 //通过定义一个头指针，可以找到树根(必须为黑)
 //自顶向下建树，结点不记录其父结点信息
 //因此需要特别定义几个指针用于记录当前结点及其父、祖父、曾祖结点
+static RBptr RBNULLptr=nullptr,current,parent,sibling,grand,great;
 RBptr RBInitialize(RBptr root,bool color){
     root=(RBptr)malloc(sizeof(struct RBnode));
     root->value=-MYINFINITY,root->color=color;

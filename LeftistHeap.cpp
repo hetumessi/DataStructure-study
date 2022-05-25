@@ -1,6 +1,7 @@
 //
 // Created by 徐绍骞 on 2022/4/23.
 //
+#include"data_structure.h"
 #include<vector>
 #include<queue>
 static LBPriorityQueue DoMerge(LBPriorityQueue,LBPriorityQueue);
@@ -9,7 +10,7 @@ static bool cmp(LBPriorityQueue a, LBPriorityQueue b){
     return compare(a->ismin,a->value,b->value);
 }
 static int Getheight(LBPriorityQueue pqueue){
-    int leftheight,rightheight,thisheight;
+    int leftheight,rightheight;
     if(pqueue){
         leftheight=Getheight(pqueue->leftchild);
         rightheight=Getheight(pqueue->rightchild);

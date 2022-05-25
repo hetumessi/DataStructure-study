@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(adsaa)
+project(DataStructure-study )
 set(CMAKE_CXX_STANDARD 11)
-add_executable(DataStructure-study main.cpp)
+AUX_SOURCE_DIRECTORY(. SOURCE_FILES)
+add_executable(ADSAA main.cpp ${SOURCE_FILES})

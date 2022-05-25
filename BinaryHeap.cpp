@@ -1,6 +1,7 @@
 //
 // Created by 徐绍骞 on 2022/4/22.
 //
+#include"data_structure.h"
 #include<cstring>
 bool compare(enum MAXORMIN ismin,Elementype a,Elementype b){
     return ismin?a-b<0:a-b>0;

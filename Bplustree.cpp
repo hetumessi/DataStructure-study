@@ -1,6 +1,7 @@
 //
 // Created by 徐绍骞 on 2022/3/12.
 //
+#include"data_structure.h"
 Bplusptr BplusInitialize(Bplusptr root,int orders,bool isleaf){
     root=(Bplusptr)malloc(sizeof(struct Bplusnode));
     root->childs=(Bplusptr*)malloc((orders+1)*sizeof(Bplusptr));

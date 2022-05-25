@@ -3,10 +3,14 @@
 //
 #ifndef ADVANCED_DATA_STRUCTURE_AND_ALGRITHM_ANALYSIS_DATA_STRUCTURE_H
 #define ADVANCED_DATA_STRUCTURE_AND_ALGRITHM_ANALYSIS_DATA_STRUCTURE_H
+#include<cstdio>
+#include<cstdlib>
 #define MYINFINITY 65535
 #define MINPQSIZE 5
 #define MAXTREES 100
+#define MINHASHTBSIZE MINPQSIZE
 typedef int Elementype;
+typedef unsigned Index;
 typedef struct AVLnode*AVLptr;
 typedef struct Splaynode*Splayptr;
 typedef struct RBnode*RBptr;
@@ -16,6 +20,8 @@ typedef struct LeftistHeap*LBPriorityQueue;
 typedef struct SkewHeap*SBPriorityQueue;
 typedef struct Binode*BinTree;
 typedef struct BinCollection*BinomialQueue;
+typedef struct Hashtable*HashTable;
+typedef struct Listnode*Hashnodeptr;
 enum COLOR{RED,BLACK};
 enum ISLEAF{NONLEAF,LEAF};
 enum MAXORMIN{MAX,MIN};
@@ -51,7 +57,6 @@ struct RBnode{
     Elementype value;
     bool color;
 };
-RBptr RBNULLptr=nullptr,current,parent,sibling,grand,great;
 RBptr RBInitialize(RBptr,bool);
 void RBtraverse(RBptr);
 RBptr RBFindMax(RBptr);
@@ -86,6 +91,7 @@ struct BinaryHeap{   //数组实现(数组模拟完全二叉树)
     Elementype*value;
     int capacity,size;
 };
+void BinTreeTraverse(BinTree);
 BPriorityQueue BinaryHeapInitialize(BPriorityQueue, int, enum MAXORMIN);
 void BinaryHeapDestroy(BPriorityQueue);
 void BinaryHeapMakeEmpty(BPriorityQueue);
@@ -144,4 +150,37 @@ Elementype BinomialQueueDeleteMin(BinomialQueue);
 BinTree BinTreeDecreaseKey(BinTree,Elementype);
 BinTree BinTreePercolateUp(BinTree);
 bool BinomialQueueIsEmpty(BinomialQueue);
+struct Hashtable{
+    HashTable head;
+    Hashnodeptr*nodelist;
+    int capacity;
+};
+struct Listnode{
+    Elementype key;
+    Hashnodeptr next;
+};
+inline Index hash_int(Elementype key,int tablesize){
+    return key%tablesize;
+}
+inline Index hash_sumfunc(const char*key,int tablesize){
+    unsigned sum=(unsigned char)*key;
+    while(*key++)sum+=*key-'a';
+    return sum%tablesize;
+}
+inline Index hash_first3sumfunc(const char*key,int tablesize){
+    return (key[0]-'a'+1+27*(key[1]-'a'+1)+27*27*(key[2]-'a'+1))%tablesize;
+}
+inline Index hash_move32sumfunc(const char*key,int tablesize){
+    unsigned long sum=(unsigned char)*key-'a';
+    while(*key++){
+        sum<<=5;
+        sum+=*key;
+    }
+    return  sum%tablesize;
+}
+HashTable HashTableInitialize(HashTable,int);
+void DestroyHashTable(HashTable);
+Hashnodeptr HashTableFind(Elementype,HashTable);
+HashTable HashTableInsert(Elementype,HashTable);
+Elementype HashTableRetrieve(Hashnodeptr);
 #endif //ADVANCED_DATA_STRUCTURE_AND_ALGRITHM_ANALYSIS_DATA_STRUCTURE_H

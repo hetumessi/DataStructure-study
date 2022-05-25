@@ -1,15 +1,5 @@
+#include"data_structure.h"
 #include<ctime>
-#include<cstdio>
-#include"AVLtree.cpp"
-#include"Splaytree.cpp"
-#include"RBtree.cpp"
-#include"Bplustree.cpp"
-#include"BinaryHeap.cpp"
-#include"LeftistHeap.cpp"
-#include"SkewHeap.cpp"
-#include"BinomialQueue.cpp"
-#include"test/test.cpp"
-#include"demo/demo.cpp"
 int main(){
     clock_t start=clock(),end;
     BinomialQueue q=nullptr,p=nullptr;
@@ -26,18 +16,18 @@ int main(){
     for(int i=0;i<numofinput;i++)BinomialQueueInsert(q,randdata[i]);
     for(int i=0;i<numofinput+1;i++)BinomialQueueInsert(p,stddata[i]);
     for(int i=0;q->Forest[i];i++){
-        TreeTraverse(q->Forest[i]);
+        BinTreeTraverse(q->Forest[i]);
         printf("\n");
     }
     ForestMerge(p,q);
     BinomialQueueDeleteMin(p);
     for(int i=0;i<MAXTREES;i++)if(p->Forest[i]){
-        TreeTraverse(p->Forest[i]);
+        BinTreeTraverse(p->Forest[i]);
         printf("\n");
     }
     BinTreeDecreaseKey(p->Forest[2]->firstchild->firstchild,50);
     for(int i=0;i<MAXTREES;i++)if(p->Forest[i]){
-        TreeTraverse(p->Forest[i]);
+        BinTreeTraverse(p->Forest[i]);
         printf("\n");
     }
     printf("\n");

@@ -27,7 +27,7 @@
 					[
 						0
 					],
-					"name" : "adsaa",
+					"name" : "DataStructure-study",
 					"targetIndexes" : 
 					[
 						0
@@ -38,9 +38,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "DataStructure-study::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-DataStructure-study-Debug-742cfb0a146359c3dc5c.json",
-					"name" : "DataStructure-study",
+					"id" : "ADSAA::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ADSAA-Debug-e35d0564b4af2f9d750f.json",
+					"name" : "ADSAA",
 					"projectIndex" : 0
 				}
 			]

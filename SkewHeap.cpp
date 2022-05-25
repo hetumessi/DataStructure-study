@@ -1,6 +1,8 @@
 //
 // Created by 徐绍骞 on 2022/4/28.
 //
+#include"data_structure.h"
+#include<queue>
 static SBPriorityQueue DoMerge(SBPriorityQueue,SBPriorityQueue);
 static SBPriorityQueue SwapChildren(SBPriorityQueue);
 static int GetDepth(SBPriorityQueue root,SBPriorityQueue dest){

@@ -2,7 +2,6 @@
 // Created by 徐绍骞 on 2022/3/12.
 //
 #include"data_structure.h"
-#include<cstdlib>
 /* 自顶向下伸展树 */
 Splayptr SplayNULLptr=nullptr;
 Splayptr SplayInitialize(Splayptr root){

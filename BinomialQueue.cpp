@@ -1,12 +1,13 @@
 //
 // Created by 徐绍骞 on 2022/4/28.
 //
+#include"data_structure.h"
 #include<cmath>
-void TreeTraverse(BinTree root){
+void BinTreeTraverse(BinTree root){
     if(root){
         printf("%d ",root->value);
-        TreeTraverse(root->firstchild);
-        TreeTraverse(root->sibling);
+        BinTreeTraverse(root->firstchild);
+        BinTreeTraverse(root->sibling);
     }
 }
 BinTree TreeInitialize(BinTree root,Elementype initializevalue){

@@ -140,7 +140,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=adsaa
+CMAKE_PROJECT_NAME:STATIC=DataStructure-study
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib
@@ -203,6 +203,15 @@ CMAKE_STRIP:FILEPATH=/Applications/Xcode.app/Contents/Developer/Toolchains/Xcode
 // during the make.  This is useful for debugging only. With Visual
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
+
+//Value Computed by CMake
+DataStructure-study_BINARY_DIR:STATIC=/Users/xushaoqian/Library/Mobile Documents/com~apple~CloudDocs/cpp/DataStructure-study/cmake-build-debug
+
+//Value Computed by CMake
+DataStructure-study_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+DataStructure-study_SOURCE_DIR:STATIC=/Users/xushaoqian/Library/Mobile Documents/com~apple~CloudDocs/cpp/DataStructure-study
 
 //Value Computed by CMake
 adsaa_BINARY_DIR:STATIC=/Users/xushaoqian/Library/Mobile Documents/com~apple~CloudDocs/cpp/DataStructure-study/cmake-build-debug

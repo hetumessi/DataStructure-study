@@ -795,7 +795,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "adsaa"
+			"value" : "DataStructure-study"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1076,6 +1076,42 @@
 			],
 			"type" : "BOOL",
 			"value" : "FALSE"
+		},
+		{
+			"name" : "DataStructure-study_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/Users/xushaoqian/Library/Mobile Documents/com~apple~CloudDocs/cpp/DataStructure-study/cmake-build-debug"
+		},
+		{
+			"name" : "DataStructure-study_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "DataStructure-study_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/Users/xushaoqian/Library/Mobile Documents/com~apple~CloudDocs/cpp/DataStructure-study"
 		},
 		{
 			"name" : "adsaa_BINARY_DIR",
