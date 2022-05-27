@@ -5,10 +5,12 @@
 #define ADVANCED_DATA_STRUCTURE_AND_ALGRITHM_ANALYSIS_DATA_STRUCTURE_H
 #include<cstdio>
 #include<cstdlib>
+#include<cassert>
 #define MYINFINITY 65535
 #define MINPQSIZE 5
 #define MAXTREES 100
 #define MINHASHTBSIZE MINPQSIZE
+#define DEFAULTLDFACTOR 0.5
 typedef int Elementype;
 typedef unsigned Index;
 typedef struct AVLnode*AVLptr;
@@ -20,11 +22,15 @@ typedef struct LeftistHeap*LBPriorityQueue;
 typedef struct SkewHeap*SBPriorityQueue;
 typedef struct Binode*BinTree;
 typedef struct BinCollection*BinomialQueue;
-typedef struct Hashtable*HashTable;
+typedef struct Hashtable_Link*HashTable_Link;
+typedef struct Hashtable_Array*HashTable_Array;
 typedef struct Listnode*Hashnodeptr;
 enum COLOR{RED,BLACK};
 enum ISLEAF{NONLEAF,LEAF};
 enum MAXORMIN{MAX,MIN};
+enum KINDOFENTRY{Legitimate,Empty,Deleted};
+enum KINDOFDETECT{Linear,Square,Double};
+enum KINDOFPRIME{Larger,Lesser};
 struct  AVLnode{
     AVLptr leftchild,rightchild;
     Elementype value;
@@ -150,14 +156,20 @@ Elementype BinomialQueueDeleteMin(BinomialQueue);
 BinTree BinTreeDecreaseKey(BinTree,Elementype);
 BinTree BinTreePercolateUp(BinTree);
 bool BinomialQueueIsEmpty(BinomialQueue);
-struct Hashtable{
-    HashTable head;
+struct Hashtable_Link{
     Hashnodeptr*nodelist;
     int capacity;
+};
+struct Hashtable_Array{
+    Hashnodeptr nodeArray;
+    int capacity,size;
+    enum KINDOFDETECT howtodetect;
+    double loadfactor;
 };
 struct Listnode{
     Elementype key;
     Hashnodeptr next;
+    enum KINDOFENTRY info;
 };
 inline Index hash_int(Elementype key,int tablesize){
     return key%tablesize;
@@ -178,9 +190,15 @@ inline Index hash_move32sumfunc(const char*key,int tablesize){
     }
     return  sum%tablesize;
 }
-HashTable HashTableInitialize(HashTable,int);
-void DestroyHashTable(HashTable);
-Hashnodeptr HashTableFind(Elementype,HashTable);
-HashTable HashTableInsert(Elementype,HashTable);
-Elementype HashTableRetrieve(Hashnodeptr);
+HashTable_Link LHashTableInitialize(HashTable_Link, int);
+HashTable_Array AHashTableInitialize(HashTable_Array, int,enum KINDOFDETECT,double);
+void LDestroyHashTable(HashTable_Link);
+void ADestroyHashTable(HashTable_Array);
+Hashnodeptr LHashTableFind(Elementype, HashTable_Link);
+Index AHashTableFind(Elementype, HashTable_Array);
+HashTable_Link LHashTableInsert(Elementype, HashTable_Link);
+HashTable_Array AHashTableInsert(Elementype, HashTable_Array);
+HashTable_Link LHashTableDelete(Elementype, HashTable_Link);
+HashTable_Array AHashTableDelete(Elementype, HashTable_Array);
+HashTable_Array Rehash(HashTable_Array);
 #endif //ADVANCED_DATA_STRUCTURE_AND_ALGRITHM_ANALYSIS_DATA_STRUCTURE_H
