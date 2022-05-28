@@ -6,13 +6,18 @@
 #include<cstdio>
 #include<cstdlib>
 #include<cassert>
+#include<cstring>
 #define MYINFINITY 65535
+#define SPACESIZE 256*256
 #define MINPQSIZE 5
 #define MAXTREES 100
 #define MINHASHTBSIZE MINPQSIZE
 #define DEFAULTLDFACTOR 0.5
 typedef int Elementype;
 typedef unsigned Index;
+typedef Elementype Cursornode;
+typedef Cursornode Cursorlist;
+typedef Cursornode Cursorpos;
 typedef struct AVLnode*AVLptr;
 typedef struct Splaynode*Splayptr;
 typedef struct RBnode*RBptr;
@@ -31,6 +36,22 @@ enum MAXORMIN{MAX,MIN};
 enum KINDOFENTRY{Legitimate,Empty,Deleted};
 enum KINDOFDETECT{Linear,Square,Double};
 enum KINDOFPRIME{Larger,Lesser};
+struct CursorNode{
+    Elementype element;
+    Cursorpos next;
+};
+void CursorspaceInitialize();
+Cursorlist ListMakeEmpty();
+bool ListIsEmpty(Cursorlist);
+bool ListisFull(Cursorlist);
+Cursorpos ListFind(Elementype,Cursorlist);
+Cursorlist ListDelete(Elementype,Cursorlist);
+Cursorlist ListInsert(Elementype ,Cursorlist);
+Cursorlist ListDeleteList(Cursorlist);
+Cursorpos GetHead(Cursorlist);
+Cursorpos GetFirst(Cursorlist);
+Cursorpos ListAdvance(Cursorpos);
+Cursorpos ListRetrieve(Cursorpos);
 struct  AVLnode{
     AVLptr leftchild,rightchild;
     Elementype value;
@@ -192,8 +213,8 @@ inline Index hash_move32sumfunc(const char*key,int tablesize){
 }
 HashTable_Link LHashTableInitialize(HashTable_Link, int);
 HashTable_Array AHashTableInitialize(HashTable_Array, int,enum KINDOFDETECT,double);
-void LDestroyHashTable(HashTable_Link);
-void ADestroyHashTable(HashTable_Array);
+void LHashTableDestroy(HashTable_Link);
+void AHashTableDestroy(HashTable_Array);
 Hashnodeptr LHashTableFind(Elementype, HashTable_Link);
 Index AHashTableFind(Elementype, HashTable_Array);
 HashTable_Link LHashTableInsert(Elementype, HashTable_Link);

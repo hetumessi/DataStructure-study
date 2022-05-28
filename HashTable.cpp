@@ -23,7 +23,7 @@ HashTable_Array AHashTableInitialize(HashTable_Array table, int tablesize,enum K
     for(int i=0;i<table->capacity;i++)table->nodeArray[i].info=Empty;
     return table;
 }
-void LDestroyHashTable(HashTable_Link table){
+void LHashTableDestroy(HashTable_Link table){
     Hashnodeptr curptr,prevptr;
     for(int i=0;i<table->capacity;i++){
         curptr=table->nodelist[i];
@@ -37,17 +37,17 @@ void LDestroyHashTable(HashTable_Link table){
     free(table);
     printf("散列表已销毁\n");
 }
-void ADestroyHashTable(HashTable_Array table){
+void AHashTableDestroy(HashTable_Array table){
     free(table->nodeArray);
     free(table);
     printf("散列表已销毁\n");
 }
 Hashnodeptr LHashTableFind(Elementype findkey, HashTable_Link table){
-    assert(findkey>0);
+    assert(findkey>=0);
     Hashnodeptr curptr=table->nodelist[hash_int(findkey,table->capacity)];
     while(curptr&&curptr->key!=findkey)curptr=curptr->next;
     if(!curptr){
-        printf("查找失败：不存在该键值\n");
+        printf("查找失败：查找值%d不在散列表中\n",findkey);
         return nullptr;
     }else return curptr;
 }
@@ -57,34 +57,42 @@ Index AHashTableFind(Elementype findkey, HashTable_Array table){
     while(table->nodeArray[curpos].info!=Empty&&table->nodeArray[curpos].key!=findkey)
         curpos=detect(curpos,++collisionnum,table)%table->capacity;
     if(table->nodeArray[curpos].info!=Legitimate){
-        printf("查找失败：不存在该键值\n");
+        printf("查找失败：查找值%d不在散列表中\n",findkey);
         return -1;
     }else return curpos;
 }
 HashTable_Link LHashTableInsert(Elementype insertkey, HashTable_Link table){
     Index insertpos=hash_int(insertkey,table->capacity);
-    Hashnodeptr curptr=table->nodelist[insertpos];
-    while(curptr&&curptr->next&&curptr->next->key!=insertkey)curptr=curptr->next;
+    Hashnodeptr curptr,prevptr;
+    curptr=prevptr=table->nodelist[insertpos];
+    while(curptr&&curptr->key!=insertkey){
+        prevptr=curptr;
+        curptr=curptr->next;
+    }
     if(!curptr){
-        table->nodelist[insertpos]=(Hashnodeptr)malloc(sizeof(struct Listnode));
-        table->nodelist[insertpos]->key=insertkey;
-    }else if(!curptr->next){
-        curptr->next=(Hashnodeptr)malloc(sizeof(struct Listnode));
-        curptr->next->key=table->nodelist[insertpos]->key;
-        table->nodelist[insertpos]->key=insertkey;
-        curptr->next->next=nullptr;
-    }else printf("插入失败：散列表已存在该键值\n");
+        if(!prevptr){
+            table->nodelist[insertpos]=(Hashnodeptr)malloc(sizeof(struct Hashtable_Link));
+            table->nodelist[insertpos]->key=insertkey;
+        }else{
+            curptr=(Hashnodeptr)malloc(sizeof(struct Hashtable_Link));
+            prevptr->next=curptr,curptr->next=nullptr;
+            curptr->key=table->nodelist[insertpos]->key;
+            table->nodelist[insertpos]->key=insertkey;
+        }
+    }else printf("插入失败：插入值%d已经在散列表中\n",insertkey);
     return table;
 }
 HashTable_Array AHashTableInsert(Elementype insertkey, HashTable_Array table){
     int collisionnum=0;
     Index insertpos=hash_int(insertkey,table->capacity);
-    while(table->nodeArray[insertpos].info!=Empty&&table->nodeArray[insertpos].key!=insertpos)
+    while(table->nodeArray[insertpos].info!=Empty&&table->nodeArray[insertpos].key!=insertkey)
         insertpos=detect(insertpos,++collisionnum,table)%table->capacity;
-    if(table->nodeArray[insertpos].info!=Legitimate)
-        table->nodeArray[insertpos].key=insertkey,table->size++;
-    else printf("插入失败：插入值已经在散列表中\n");
-    if(table->size>table->loadfactor)table=Rehash(table);
+    if(table->nodeArray[insertpos].info!=Legitimate){
+        table->nodeArray[insertpos].key=insertkey;
+        table->nodeArray[insertpos].info=Legitimate;
+        table->size++;
+    }else printf("插入失败：插入值%d已经在散列表中\n",insertkey);
+    if(table->size>table->capacity*table->loadfactor)table=Rehash(table);
     return table;
 }
 HashTable_Link LHashTableDelete(Elementype deletekey, HashTable_Link table){
@@ -92,7 +100,7 @@ HashTable_Link LHashTableDelete(Elementype deletekey, HashTable_Link table){
     Hashnodeptr prevptr,deleteptr;
     prevptr=deleteptr=table->nodelist[deletepos];
     while(deleteptr&&deleteptr->key!=deletekey)prevptr=deleteptr,deleteptr=deleteptr->next;
-    if(!deleteptr)printf("删除失败：删除值不在散列表中\n");
+    if(!deleteptr)printf("删除失败：删除值%d不在散列表中\n",deletekey);
     else if(prevptr==deleteptr){
         table->nodelist[deletepos]=deleteptr->next;
         free(prevptr);
@@ -113,10 +121,13 @@ HashTable_Array AHashTableDelete(Elementype deletekey, HashTable_Array table){
     return table;
 }
 HashTable_Array Rehash(HashTable_Array table){
-    printf("创建新的散列表\n");
+    printf("散列表扩容\n");
     Hashnodeptr oldnodeArray=table->nodeArray;
-    table->nodeArray=(Hashnodeptr)malloc(table->capacity*2*sizeof(struct Listnode));
-    for(int i=0;i<table->capacity;i++)if(oldnodeArray[i].info==Legitimate)
+    table->capacity=getprime(table->capacity*2,Larger),table->size=0;
+    table->nodeArray=(Hashnodeptr)malloc(table->capacity*sizeof(struct Listnode));
+    for(int i=0;i<table->capacity;i++)table->nodeArray[i].info=Empty;
+    if(table->nodeArray==oldnodeArray)return table;
+    for(int i=0;i<table->capacity/2;i++)if(oldnodeArray[i].info==Legitimate)
             AHashTableInsert(oldnodeArray[i].key,table);
     free(oldnodeArray);
     return table;
