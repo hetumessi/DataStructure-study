@@ -14,10 +14,12 @@
 #define MINHASHTBSIZE MINPQSIZE
 #define DEFAULTLDFACTOR 0.5
 typedef int Elementype;
-typedef unsigned Index;
+typedef int Weighttype;
+typedef int Datatype;
 typedef Elementype Cursornode;
 typedef Cursornode Cursorlist;
 typedef Cursornode Cursorpos;
+typedef unsigned Index;
 typedef struct AVLnode*AVLptr;
 typedef struct Splaynode*Splayptr;
 typedef struct RBnode*RBptr;
@@ -29,7 +31,13 @@ typedef struct Binode*BinTree;
 typedef struct BinCollection*BinomialQueue;
 typedef struct Hashtable_Link*HashTable_Link;
 typedef struct Hashtable_Array*HashTable_Array;
+typedef struct Vnode Vertex;
+typedef struct Enode*Edge;
 typedef struct Listnode*Hashnodeptr;
+typedef struct Vertexnode*LVertex;
+typedef struct Adjacencynode*Adjacencylist;
+typedef struct LGraphnode*LGraph;
+typedef struct MGraphnode*MGraph;
 enum COLOR{RED,BLACK};
 enum ISLEAF{NONLEAF,LEAF};
 enum MAXORMIN{MAX,MIN};
@@ -40,18 +48,20 @@ struct CursorNode{
     Elementype element;
     Cursorpos next;
 };
+extern struct CursorNode Cursorspace[SPACESIZE];          //链表空间
 void CursorspaceInitialize();
 Cursorlist ListMakeEmpty();
 bool ListIsEmpty(Cursorlist);
-bool ListisFull(Cursorlist);
+bool ListisLast(Cursorpos,Cursorlist);
 Cursorpos ListFind(Elementype,Cursorlist);
 Cursorlist ListDelete(Elementype,Cursorlist);
 Cursorlist ListInsert(Elementype ,Cursorlist);
 Cursorlist ListDeleteList(Cursorlist);
 Cursorpos GetHead(Cursorlist);
 Cursorpos GetFirst(Cursorlist);
-Cursorpos ListAdvance(Cursorpos);
-Cursorpos ListRetrieve(Cursorpos);
+Cursorpos ListAdvance(Cursorpos,Cursorlist,int);
+Elementype ListRetrieve(Cursorpos);
+Cursorlist ListReverse(Cursorlist);
 struct  AVLnode{
     AVLptr leftchild,rightchild;
     Elementype value;
@@ -222,4 +232,34 @@ HashTable_Array AHashTableInsert(Elementype, HashTable_Array);
 HashTable_Link LHashTableDelete(Elementype, HashTable_Link);
 HashTable_Array AHashTableDelete(Elementype, HashTable_Array);
 HashTable_Array Rehash(HashTable_Array);
+struct Vnode{
+    Datatype vname;
+    Elementype key;
+};
+struct Enode{
+    Vertex v1,v2;
+    Weighttype weight;
+};
+struct Vertexnode{
+    Elementype key;
+    Weighttype weight;
+    LVertex next;
+};
+struct Adjacencynode{
+    int indegree;
+    LVertex firstadjacency;
+};
+struct LGraphnode{
+    Adjacencylist graphlist;
+    int Vnum,Enum;
+};
+struct MGraphnode{
+    Weighttype**graphmatrix;
+    Elementype*vertexkey;
+    int Vnum,Enum;
+};
+LGraph LGraphInitialize(LGraph,int);
+MGraph MGraphInitialize(MGraph,int);
+LGraph LGraphInsert(LGraph,Edge);
+MGraph MGraphInsert(MGraph,Edge);
 #endif //ADVANCED_DATA_STRUCTURE_AND_ALGRITHM_ANALYSIS_DATA_STRUCTURE_H
