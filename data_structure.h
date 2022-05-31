@@ -38,6 +38,7 @@ typedef struct Vertexnode*LVertex;
 typedef struct Adjacencynode*Adjacencylist;
 typedef struct LGraphnode*LGraph;
 typedef struct MGraphnode*MGraph;
+typedef struct Entrynode*GraphEntry;
 enum COLOR{RED,BLACK};
 enum ISLEAF{NONLEAF,LEAF};
 enum MAXORMIN{MAX,MIN};
@@ -233,7 +234,7 @@ HashTable_Link LHashTableDelete(Elementype, HashTable_Link);
 HashTable_Array AHashTableDelete(Elementype, HashTable_Array);
 HashTable_Array Rehash(HashTable_Array);
 struct Vnode{
-    Datatype vname;
+    Datatype vname;  //Datatype可以通过散列映射为数组下标
     Elementype key;
 };
 struct Enode{
@@ -241,25 +242,42 @@ struct Enode{
     Weighttype weight;
 };
 struct Vertexnode{
+    Datatype vname;
     Elementype key;
     Weighttype weight;
     LVertex next;
 };
 struct Adjacencynode{
-    int indegree;
+    Elementype key;
+    int indegree,index;
     LVertex firstadjacency;
 };
 struct LGraphnode{
     Adjacencylist graphlist;
     int Vnum,Enum;
+    bool*visited;
 };
 struct MGraphnode{
     Weighttype**graphmatrix;
     Elementype*vertexkey;
     int Vnum,Enum;
+    bool*visited;
+};
+struct Entrynode{
+    int Vnum;
+    Weighttype*dist;
+    Vertex*path;
 };
 LGraph LGraphInitialize(LGraph,int);
 MGraph MGraphInitialize(MGraph,int);
 LGraph LGraphInsert(LGraph,Edge);
 MGraph MGraphInsert(MGraph,Edge);
+void LGraphDFS(LGraph);
+void MGraphDFS(MGraph);
+void LGraphBFS(LGraph);
+void MGraphBFS(MGraph);
+Datatype*LGraphTopSort(LGraph,Datatype*,int);//邻接矩阵的拓扑排序同理，不过要额外计算每个顶点的入度
+GraphEntry EntryInitialize(GraphEntry,int);
+GraphEntry LGraphDijkstra(LGraph,GraphEntry,Datatype);
+GraphEntry MGraphDijkstra(MGraph,GraphEntry,Datatype);
 #endif //ADVANCED_DATA_STRUCTURE_AND_ALGRITHM_ANALYSIS_DATA_STRUCTURE_H
