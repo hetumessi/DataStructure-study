@@ -276,8 +276,10 @@ void LGraphDFS(LGraph);
 void MGraphDFS(MGraph);
 void LGraphBFS(LGraph);
 void MGraphBFS(MGraph);
-Datatype*LGraphTopSort(LGraph,Datatype*,int);//邻接矩阵的拓扑排序同理，不过要额外计算每个顶点的入度
 GraphEntry EntryInitialize(GraphEntry,int);
 GraphEntry LGraphDijkstra(LGraph,GraphEntry,Datatype);
 GraphEntry MGraphDijkstra(MGraph,GraphEntry,Datatype);
+Datatype*LGraphTopSort(LGraph,Datatype*,int);//邻接矩阵的拓扑排序同理，不过要额外计算每个顶点的入度
+//下面都以邻接表进行演示，邻接矩阵算法均同理
+bool LGBellman_Ford(LGraph,GraphEntry,Datatype); //相比Dijkstra可以处理负值边的情况，但是效率较低
 #endif //ADVANCED_DATA_STRUCTURE_AND_ALGRITHM_ANALYSIS_DATA_STRUCTURE_H

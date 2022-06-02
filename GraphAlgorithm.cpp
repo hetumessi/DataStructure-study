@@ -253,3 +253,23 @@ void PrintPath(GraphEntry entry,Datatype destination){
         printf("%d:%d->",next.vname,next.key);
     }
 }
+bool LGBellman_Ford(LGraph graph,GraphEntry entry,Datatype origin){
+    entry->dist[origin]=0,entry->path[origin].key=graph->graphlist[origin].key;
+    LVertex curvertex;
+    for(int i=0;i<graph->Vnum;i++)
+        for(int j=0;j<graph->Vnum;j++){
+            curvertex=graph->graphlist[j].firstadjacency;
+            while(curvertex){
+                if(entry->dist[curvertex->vname]>entry->dist[j]+curvertex->weight){
+                    entry->dist[curvertex->vname]=entry->dist[j]+curvertex->weight;
+                    entry->path[curvertex->vname].vname=j,entry->path[curvertex->vname].key=graph->graphlist[i].key;
+                }
+                curvertex=curvertex->next;
+            }
+        }
+    for(int i=0;i<graph->Vnum;i++){
+        curvertex=graph->graphlist[i].firstadjacency;
+        while(curvertex)if(entry->dist[curvertex->vname]>entry->dist[i]+curvertex->weight)return false;
+    }
+    return true;
+}
